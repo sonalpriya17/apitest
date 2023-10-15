@@ -1,0 +1,2 @@
+rootProject.name = 'apitest8'
+include 'api', 'testrunner'
