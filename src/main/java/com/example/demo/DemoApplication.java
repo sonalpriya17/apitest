@@ -39,7 +39,7 @@ public class DemoApplication {
 
         @PostConstruct
         public void seedData() {
-            dataSeeder.seedTestData();
+            dataSeeder.seed();
         }
     }
 
@@ -53,7 +53,7 @@ public class DemoApplication {
 
         @PostConstruct
         public void seedData() {
-            dataSeeder.seedTestData();
+            dataSeeder.seed();
         }
     }
 }

@@ -1,0 +1,88 @@
+[{
+  "_id": "60f5a37c1ef549b7c7c7e0c5",
+  "username": "john_doe",
+  "email": "john@example.com",
+  "passwordHash": "5f4dcc3b5aa765d61d8327deb882cf99",
+  "profile": {
+    "firstName": "John",
+    "lastName": "Doe",
+    "dob": "1990-01-01",
+    "addresses": [
+      {
+        "type": "home",
+        "street": "123 Main St",
+        "city": "Springfield",
+        "state": "IL",
+        "postalCode": "62704"
+      },
+      {
+        "type": "work",
+        "street": "456 Elm St",
+        "city": "Shelbyville",
+        "state": "IL",
+        "postalCode": "62565"
+      }
+    ]
+  },
+  "contacts": [
+    {"type": "mobile", "number": "555-1234"},
+    {"type": "home", "number": "555-5678"}
+  ],
+  "purchaseHistory": [
+    {
+      "productName": "Book: 'The Hobbit'",
+      "purchaseDate": "2022-01-15",
+      "amount": 14.99
+    },
+    {
+      "productName": "Laptop",
+      "purchaseDate": "2022-05-20",
+      "amount": 999.99
+    }
+  ]
+},
+  {
+    "_id": "70f5a37c1ef549b7c7c7e0c6",
+    "username": "jane_smith",
+    "email": "jane@example.com",
+    "passwordHash": "e99a18c428cb38d5f260853678922e03",
+    "profile": {
+      "firstName": "Jane",
+      "lastName": "Smith",
+      "dob": "1992-06-15",
+      "addresses": [
+        {
+          "type": "home",
+          "street": "789 Oak St",
+          "city": "Springfield",
+          "state": "IL",
+          "postalCode": "62704"
+        },
+        {
+          "type": "work",
+          "street": "101 Pine St",
+          "city": "Shelbyville",
+          "state": "IL",
+          "postalCode": "62565"
+        }
+      ]
+    },
+    "contacts": [
+      {"type": "mobile", "number": "555-9876"},
+      {"type": "home", "number": "555-4321"}
+    ],
+    "purchaseHistory": [
+      {
+        "productName": "Coffee Maker",
+        "purchaseDate": "2022-03-10",
+        "amount": 49.99
+      },
+      {
+        "productName": "Desk Lamp",
+        "purchaseDate": "2022-07-01",
+        "amount": 29.99
+      }
+    ]
+  }
+
+]

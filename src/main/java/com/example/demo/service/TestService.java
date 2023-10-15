@@ -24,25 +24,18 @@ public class TestService {
         return testRepository.findAll();
     }
 
-    // public void seedTestData() {
-    //     try {
-    //         testRepository.deleteAll();
+    public void seedTestData() {
+        try {
+            testRepository.deleteAll();
 
-    //         // Handle multiple test data files
-    //         File folder = ResourceUtils.getFile("file:/Users/sonalpriya/Documents/project/apitest8/src/main/resources/testdata/");
-    //         File[] listOfFiles = folder.listFiles();
-
-    //         for (File file : listOfFiles) {
-    //             if (file.isFile() && file.getName().endsWith(".json")) {
-    //                 ObjectMapper mapper = new ObjectMapper();
-    //                 List<TestData> testDataList = mapper.readValue(file, new TypeReference<List<TestData>>(){});
-    //                 testDataList.forEach(testData -> testRepository.save(testData));
-    //             }
-    //         }
-    //     } catch (Exception e) {
-    //         e.printStackTrace();
-    //     }
-    // }
+            File file = ResourceUtils.getFile("classpath:test.json");
+            ObjectMapper mapper = new ObjectMapper();
+            List<TestData> testDataList = mapper.readValue(file, new TypeReference<List<TestData>>(){});
+            testDataList.forEach(testData -> testRepository.save(testData));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     public String runTest(String testJson) throws Exception {
         // Parse the JSON input

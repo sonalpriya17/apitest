@@ -2,28 +2,28 @@
 <testng-results ignored="1" total="5" passed="3" failed="1" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2023-10-15T23:33:19 IST" name="Suite" finished-at="2023-10-15T23:33:20 IST" duration-ms="1831">
+  <suite started-at="2023-10-16T00:18:30 IST" name="Suite" finished-at="2023-10-16T00:18:32 IST" duration-ms="2462">
     <groups>
     </groups>
-    <test started-at="2023-10-15T23:33:19 IST" name="Test" finished-at="2023-10-15T23:33:20 IST" duration-ms="1831">
+    <test started-at="2023-10-16T00:18:30 IST" name="Test" finished-at="2023-10-16T00:18:32 IST" duration-ms="2462">
       <class name="com.example.demo.test.TestNGTest">
-        <test-method is-config="true" signature="setup()[pri:0, instance:com.example.demo.test.TestNGTest@609319c3]" started-at="2023-10-15T23:33:19 IST" name="setup" finished-at="2023-10-15T23:33:19 IST" duration-ms="4" status="PASS">
+        <test-method is-config="true" signature="setup()[pri:0, instance:com.example.demo.test.TestNGTest@68ddd415]" started-at="2023-10-16T00:18:30 IST" name="setup" finished-at="2023-10-16T00:18:30 IST" duration-ms="4" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setup -->
-        <test-method signature="testPostRequest()[pri:0, instance:com.example.demo.test.TestNGTest@609319c3]" started-at="2023-10-15T23:33:19 IST" name="testPostRequest" finished-at="2023-10-15T23:33:20 IST" duration-ms="1809" status="PASS">
+        <test-method signature="testPostRequest()[pri:0, instance:com.example.demo.test.TestNGTest@68ddd415]" started-at="2023-10-16T00:18:30 IST" name="testPostRequest" finished-at="2023-10-16T00:18:32 IST" duration-ms="2446" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testPostRequest -->
-        <test-method signature="testTestNGTWO()[pri:0, instance:com.example.demo.test.TestNGTest@609319c3]" started-at="2023-10-15T23:33:20 IST" name="testTestNGTWO" finished-at="2023-10-15T23:33:20 IST" duration-ms="0" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- testTestNGTWO -->
-        <test-method signature="testTestNGONE()[pri:0, instance:com.example.demo.test.TestNGTest@609319c3]" started-at="2023-10-15T23:33:20 IST" name="testTestNGONE" finished-at="2023-10-15T23:33:20 IST" duration-ms="0" status="PASS">
+        <test-method signature="testTestNGONE()[pri:0, instance:com.example.demo.test.TestNGTest@68ddd415]" started-at="2023-10-16T00:18:32 IST" name="testTestNGONE" finished-at="2023-10-16T00:18:32 IST" duration-ms="0" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testTestNGONE -->
-        <test-method signature="testTestNGFOUR()[pri:0, instance:com.example.demo.test.TestNGTest@609319c3]" started-at="2023-10-15T23:33:20 IST" name="testTestNGFOUR" finished-at="2023-10-15T23:33:20 IST" duration-ms="0" status="FAIL">
+        <test-method signature="testTestNGTWO()[pri:0, instance:com.example.demo.test.TestNGTest@68ddd415]" started-at="2023-10-16T00:18:32 IST" name="testTestNGTWO" finished-at="2023-10-16T00:18:32 IST" duration-ms="0" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testTestNGTWO -->
+        <test-method signature="testTestNGFOUR()[pri:0, instance:com.example.demo.test.TestNGTest@68ddd415]" started-at="2023-10-16T00:18:32 IST" name="testTestNGFOUR" finished-at="2023-10-16T00:18:32 IST" duration-ms="0" status="FAIL">
           <exception class="java.lang.AssertionError">
             <message>
               <![CDATA[expected [2] but found [1]]]>
