@@ -2,12 +2,15 @@ package com.example.demo.seed;
 
 import com.example.demo.model.TestData;
 import com.example.demo.model.User;
+import com.example.demo.repository.H2Repository;
 import com.example.demo.repository.TestRepository;
 import com.example.demo.repository.UserRepository;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.ResourceUtils;
+
 import java.io.File;
 import java.util.List;
 
@@ -20,16 +23,31 @@ public class DataSeeder {
     @Autowired
     private UserRepository userRepository;
 
+     @Autowired
+    private H2Repository h2Repository;
+
     public void seed() {
         try {
-            File testDataDir = new File("src/main/resources/testdata");
-            File[] listOfFiles = testDataDir.listFiles();
-
-            for (File file : listOfFiles) {
-                if (file.isFile() && file.getName().endsWith(".json")) {
-                    seedDataFile(file);
-                }
+            testRepository.deleteAll();
+            userRepository.deleteAll();
+            h2Repository.deleteAll();
+            File file = ResourceUtils.getFile("classpath:testdata/test_data.json");
+            if (file.getName().endsWith(".json")) {
+                ObjectMapper mapper = new ObjectMapper();
+                List<TestData> testDataList = mapper.readValue(file, new TypeReference<List<TestData>>(){});
+                testDataList.forEach(testData -> testRepository.save(testData));
+            } else if (file.getName().endsWith(".csv")) {
+                // Implement CSV reading and saving to H2 database
             }
+            
+            // File testDataDir = new File("src/main/resources/testdata");
+            // File[] listOfFiles = testDataDir.listFiles();
+
+            // for (File file : listOfFiles) {
+            //     if (file.isFile() && file.getName().endsWith(".json")) {
+            //         seedDataFile(file);
+            //     }
+            // }
         } catch (Exception e) {
             e.printStackTrace();
         }

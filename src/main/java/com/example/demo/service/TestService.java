@@ -1,7 +1,9 @@
 package com.example.demo.service;
 
 import com.example.demo.model.TestData;
+import com.example.demo.model.User;
 import com.example.demo.repository.TestRepository;
+import com.example.demo.repository.H2Repository;
 import com.example.demo.test.TestNGTest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -20,6 +22,9 @@ public class TestService {
     @Autowired
     private TestRepository testRepository;
 
+    @Autowired
+    private H2Repository h2Repository;
+
     public List<TestData> getAllTestData() {
         return testRepository.findAll();
     }
@@ -29,9 +34,13 @@ public class TestService {
             testRepository.deleteAll();
 
             File file = ResourceUtils.getFile("classpath:test.json");
-            ObjectMapper mapper = new ObjectMapper();
-            List<TestData> testDataList = mapper.readValue(file, new TypeReference<List<TestData>>(){});
-            testDataList.forEach(testData -> testRepository.save(testData));
+            if (file.getName().endsWith(".json")) {
+                ObjectMapper mapper = new ObjectMapper();
+                List<TestData> testDataList = mapper.readValue(file, new TypeReference<List<TestData>>(){});
+                testDataList.forEach(testData -> testRepository.save(testData));
+            } else if (file.getName().endsWith(".csv")) {
+                // Implement CSV reading and saving to H2 database
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
