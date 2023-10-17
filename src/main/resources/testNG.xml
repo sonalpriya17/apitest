@@ -5,12 +5,19 @@
     <classes>
       <class name="com.example.demo.test.TestNGTest"/>
       <methods>
-          <include name="testPostRequest"/>
-          <include name="testTestNGONE"/>
-          <include name="testTestNGTWO"/>
+          <exclude name="testPostRequest"/>
+          <exclude name="testTestNGONE"/>
+          <exclude name="testTestNGTWO"/>
           <exclude name="testTestNGTHREE"/>
-          <include name="testTestNGFOUR"/>
+          <exclude name="testTestNGFOUR"/> 
+          <include name="testPostRequestUsingH2DB"/>
         </methods>
+        <class name="com.example.demo.test.testH2" >
+                <methods>
+                    <include name="readCSVAndStoreInH2" />
+                    <include name="fetchDataFromH2AndPrint" />
+                </methods>
+            </class>
     </classes>
   </test> <!-- Test -->
 </suite> <!-- Suite -->

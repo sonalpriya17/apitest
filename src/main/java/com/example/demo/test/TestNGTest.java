@@ -1,6 +1,8 @@
 package com.example.demo.test;
 
+import com.example.demo.model.Customer;
 import com.example.demo.model.TestData;
+import com.example.demo.repository.CustomerRepository;
 import com.example.demo.repository.TestRepository;
 import com.example.demo.service.TestService;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -9,6 +11,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.stereotype.Component;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
@@ -25,6 +28,9 @@ public class TestNGTest {
     private TestRepository testRepository;
 
     @Autowired
+    private CustomerRepository customerRepository;
+
+    @Autowired
     private TestService testService;
 
     private String baseURI;
@@ -32,9 +38,13 @@ public class TestNGTest {
 
     @BeforeClass
     public void setup() {
+        //RestAssured.port = port;
         baseURI = "https://jsonplaceholder.typicode.com";
         basePath = "/posts";
     }
+
+    // @LocalServerPort
+    // private int port;
 
   
     @Test
@@ -95,4 +105,38 @@ public class TestNGTest {
         // Get the test data from MongoDB
         Assert.assertEquals(1, 2);
     }
+    long id=1;
+    @Test
+    public void testPostRequestUsingH2DB() {
+        // Prepare the test data
+        Customer testData = new Customer();
+        testData.setTitle("sample title");
+        testData.setBody("sample body");
+        testData.setUserId(id);
+        // Save the test data in H2
+        customerRepository.save(testData);
+
+        // Prepare the request body
+        Map<String, Object> requestBody = new HashMap<>();
+        requestBody.put("title", testData.getTitle());
+        requestBody.put("body", testData.getBody());
+        requestBody.put("userId", testData.getUserId());
+
+        // Send the POST request and test
+        Response response = RestAssured.given()
+            .contentType("application/json")
+            .body(requestBody)
+            .when()
+            .post("/posts");  // assuming you're testing a local endpoint
+
+        // Assert the response
+        Assert.assertEquals(response.getStatusCode(), 201);
+        Assert.assertEquals(response.jsonPath().getString("title"), testData.getTitle());
+        Assert.assertEquals(response.jsonPath().getString("body"), testData.getBody());
+        //Assert.assertEquals(response.jsonPath().getInt("userId"), testData.getUserId());
+
+        // Optional: Clean up the data after the test
+        customerRepository.delete(testData);
+    }
+
 }

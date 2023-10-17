@@ -1,8 +1,9 @@
 package com.example.demo.seed;
 
+import com.example.demo.model.Customer;
 import com.example.demo.model.TestData;
 import com.example.demo.model.User;
-import com.example.demo.repository.H2Repository;
+import com.example.demo.repository.CustomerRepository;
 import com.example.demo.repository.TestRepository;
 import com.example.demo.repository.UserRepository;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -10,8 +11,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ResourceUtils;
+import com.opencsv.CSVReader;
+import com.opencsv.exceptions.CsvValidationException;
 
 import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.List;
 
 @Component
@@ -23,32 +28,63 @@ public class DataSeeder {
     @Autowired
     private UserRepository userRepository;
 
-     @Autowired
-    private H2Repository h2Repository;
+    @Autowired
+    private CustomerRepository customerH2DataRepository;
 
     public void seed() {
         try {
-            testRepository.deleteAll();
-            userRepository.deleteAll();
-            h2Repository.deleteAll();
-            File file = ResourceUtils.getFile("classpath:testdata/test_data.json");
-            if (file.getName().endsWith(".json")) {
-                ObjectMapper mapper = new ObjectMapper();
-                List<TestData> testDataList = mapper.readValue(file, new TypeReference<List<TestData>>(){});
-                testDataList.forEach(testData -> testRepository.save(testData));
-            } else if (file.getName().endsWith(".csv")) {
-                // Implement CSV reading and saving to H2 database
-            }
-            
-            // File testDataDir = new File("src/main/resources/testdata");
-            // File[] listOfFiles = testDataDir.listFiles();
+            File testDataDir = ResourceUtils.getFile("classpath:testdata");
+            File[] listOfFiles = testDataDir.listFiles();
 
-            // for (File file : listOfFiles) {
-            //     if (file.isFile() && file.getName().endsWith(".json")) {
-            //         seedDataFile(file);
-            //     }
-            // }
+            for (File file : listOfFiles) {
+                System.out.println("file name:------->"+file.getAbsolutePath());
+                if (file.isFile() && file.getName().endsWith(".json")) {
+                    mongoDBDataSeeder(file);
+                } else if (file.isFile() && file.getName().endsWith(".csv")) {
+                    H2DataSeeder(file);
+                }
+            }
         } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void mongoDBDataSeeder(File file) {
+        testRepository.deleteAll();
+        userRepository.deleteAll();
+
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            List<TestData> testDataList = mapper.readValue(file, new TypeReference<List<TestData>>(){});
+            testDataList.forEach(testData -> testRepository.save(testData));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void H2DataSeeder(File file) {
+        customerH2DataRepository.deleteAll();
+
+        try (CSVReader reader = new CSVReader(new FileReader(file.getPath()))) {
+            String[] line;
+            while ((line = reader.readNext()) != null) {
+                if (line[0].equalsIgnoreCase("title") && line[1].equalsIgnoreCase("body")) {
+                    continue;
+                }
+
+                Customer customer = new Customer();
+                customer.setTitle(line[0]);
+                customer.setBody(line[1]);
+
+                try {
+                    customer.setUserId(Long.parseLong(line[2]));
+                } catch (NumberFormatException e) {
+                    System.err.println("Error parsing user ID: " + line[2]);
+                }
+
+                customerH2DataRepository.save(customer);
+            }
+        } catch (IOException |CsvValidationException e) {
             e.printStackTrace();
         }
     }

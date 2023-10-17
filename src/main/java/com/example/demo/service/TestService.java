@@ -1,9 +1,7 @@
 package com.example.demo.service;
 
 import com.example.demo.model.TestData;
-import com.example.demo.model.User;
 import com.example.demo.repository.TestRepository;
-import com.example.demo.repository.H2Repository;
 import com.example.demo.test.TestNGTest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -22,9 +20,7 @@ public class TestService {
     @Autowired
     private TestRepository testRepository;
 
-    @Autowired
-    private H2Repository h2Repository;
-
+    
     public List<TestData> getAllTestData() {
         return testRepository.findAll();
     }
